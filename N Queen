@@ -1,0 +1,50 @@
+// N Queen Problem
+// Algorithm - Backtracking
+#include <stdio.h>
+int matrix[10][10];
+bool isSafe(int row,int col,int N)
+{
+    /* Check this row on left side */
+    for(int i=1;i<col;i++) if(matrix[row][i]==1) return false ;
+
+    /* Check upper diagonal on left side */
+    for(int i=row,j=col;i>=1&&j>=1;i--,j--) if(matrix[i][j]==1) return false ;
+
+    /* Check lower diagonal on left side */
+    for(int i=row,j=col;i<=N&&j>=1;i++,j--) if(matrix[i][j]==1) return false ;
+
+    return true ;
+}
+bool solveNQ(int col,int N)
+{
+    if(col>N) return true ;
+    for(int row=1;row<=N;row++)
+    {
+        if(isSafe(row,col,N))
+        {
+            matrix[row][col] = 1 ;
+            if(solveNQ(col+1,N)) return true ;
+            matrix[row][col]=0;
+        }
+    }
+    return false ;
+}
+void printGrid(int N)
+{
+    for(int row=1;row<=N;row++)
+    {
+        for(int col=1;col<=N;col++)
+        {
+            printf("%2d",matrix[row][col]);
+        }
+        puts("");
+    }
+}
+int main()
+{
+    int N ; // N is the number of rows and columns .
+    scanf("%d",&N);
+    if(solveNQ(1,N)) printGrid(N);
+    else puts("Solution does not exist");
+    return 0;
+}
