@@ -1,5 +1,6 @@
+// Solving Sudoku
+// Algorithm - Backtracking
 #include <stdio.h>
-using namespace std;
 int matrix[9][9];
 bool findLocation(int &row,int &col)
 {
